@@ -124,6 +124,19 @@ class Controller(
     }
 
 
+    private fun cifrar(textoEnString : String, llaveEnString : String) : String {
+        val type = "AES/ECB/PKCS5Padding"
+        println("Voy a cifrar: $textoEnString")
+        val cipher = Cipher.getInstance(type)
+        cipher.init(Cipher.ENCRYPT_MODE, getKey(llaveEnString))
+        val textCifrado = cipher.doFinal(textoEnString.toByteArray(Charsets.UTF_8))
+        println("Texto cifrado $textCifrado")
+        val textCifradoYEncodado = Base64.getUrlEncoder().encodeToString(textCifrado)
+        println("Texto cifrado y encodado $textCifradoYEncodado")
+        return textCifradoYEncodado
+        //return textCifrado.toString()
+    }
+
     fun vaciarLista() {
         Lista.list.clear()
     }
